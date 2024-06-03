@@ -1,11 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const testController = require('../../controllers/testController');
+const userController = require('../../controllers/userController');
 const pacienteController = require('../../controllers/pacienteController');
 const medicoController = require('../../controllers/medicoController');
 
 /**  Ruta de testeo */
 router.get('/test',testController.test);
+
+/**  Ruta de Usuario */
+router.post('/register',userController.register);
+router.post('/login',userController.login);
+router.post('/logout',userController.logout);
+router.delete('/user/:id',userController.delete);
+
+
+
 
 /**  Rutas  de Pacientes */
 
