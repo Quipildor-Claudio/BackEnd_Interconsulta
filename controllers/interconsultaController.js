@@ -1,5 +1,5 @@
-const Medico = require('../models/medico');
-var medicoController = {
+const Interconsulta = require('../models/interconsulta');
+let interconsultaController = {
 
     getAll: async (req, res) => {
         try {
@@ -7,8 +7,8 @@ var medicoController = {
             const limit = parseInt(req.query.limit) || 50;
             const skip = (page - 1) * limit;
     
-            const items = await Medico.find().skip(skip).limit(limit);
-            const totalItems = await Medico.countDocuments();
+            const items = await Interconsulta.find().skip(skip).limit(limit);
+            const totalItems = await Interconsulta.countDocuments();
             const totalPages = Math.ceil(totalItems / limit);
     
             res.json({
@@ -23,7 +23,7 @@ var medicoController = {
     },
     getOne: async (req, res) => {
         try {
-            const item = await Medico.findById(req.params.id);
+            const item = await Interconsulta.findById(req.params.id);
             if (item == null) {
                 return res.status(404).json({ message: 'Item no encontrado' });
             }
@@ -34,7 +34,7 @@ var medicoController = {
     },
     save: async (req, res) => {
         try {
-            const item = new Medico(req.body);
+            const item = new Interconsulta(req.body);
             const savedItem = await item.save();
             res.status(201).json(savedItem);
         } catch (err) {
@@ -44,7 +44,7 @@ var medicoController = {
 
     update: async (req, res) => {
         try {
-            const updatedItem = await Medico.findByIdAndUpdate(req.params.id, req.body, { new: true });
+            const updatedItem = await Interconsulta.findByIdAndUpdate(req.params.id, req.body, { new: true });
             if (updatedItem == null) {
                 return res.status(404).json({ message: 'Item no encontrado' });
             }
@@ -56,7 +56,7 @@ var medicoController = {
 
     delete: async (req, res) => {
         try {
-            const deletedItem = await Medico.findByIdAndDelete(req.params.id);
+            const deletedItem = await Interconsulta.findByIdAndDelete(req.params.id);
             if (deletedItem == null) {
                 return res.status(404).json({ message: 'Item no encontrado' });
             }
@@ -68,4 +68,4 @@ var medicoController = {
 
 }
 
-module.exports = medicoController;
+module.exports = interconsultaController;

@@ -3,8 +3,20 @@ var pacienteController = {
 
     getAll: async (req, res) => {
         try {
-            const items = await Paciente.find();
-            res.json(items);
+            const page = parseInt(req.query.page) || 1;
+            const limit = parseInt(req.query.limit) || 50;
+            const skip = (page - 1) * limit;
+
+            const items = await Paciente.find().skip(skip).limit(limit);
+            const totalItems = await Paciente.countDocuments();
+            const totalPages = Math.ceil(totalItems / limit);
+
+            res.json({
+                items,
+                totalItems,
+                totalPages,
+                currentPage: page
+            });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -52,7 +64,35 @@ var pacienteController = {
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
+    },
+    getByDni: async (req, res) => {
+        try {
+            const dni = parseInt(req.params.dni);
+            if (isNaN(dni)) {
+                return res.status(400).json({ message: 'Invalid DNI format' });
+            }
+
+            const item = await Paciente.findOne({ dni: dni });
+            if (!item) {
+                return res.status(404).json({ message: 'Paciente not found' });
+            }
+
+            res.json(item);
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
+
+    searchDni: async (req, res) => {
+        try {
+            const { dni } = req.query;
+            const patients = await Patiente.find({ dni: { $regex:/25/ } });
+            return res.json(patients);
+        } catch (error) {
+            res.status(500).send(error);
+        }
     }
+
 
 }
 
