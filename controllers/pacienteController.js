@@ -85,15 +85,24 @@ var pacienteController = {
 
     searchDni: async (req, res) => {
         try {
-            const { dni } = req.query;
-            const patients = await Patiente.find({ dni: { $regex:/25/ } });
-            return res.json(patients);
+            const  {dni}  = req.query;
+            const patients = await Paciente.find({ dni: new RegExp(`^${dni}`, 'i') }).limit(100);
+            res.json(patients);
         } catch (error) {
             res.status(500).send(error);
         }
     }
-
-
+    ,
+    search: async (req, res) => {
+        const searchTerm =
+            req.query.q || 'No search term provided';
+        res.send(`Search Term: ${searchTerm}`);
+    }
 }
+
+
+
+
+
 
 module.exports = pacienteController;

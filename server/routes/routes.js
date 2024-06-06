@@ -28,7 +28,9 @@ router.post('/paciente',pacienteController.save);
 router.put('/paciente/:id',pacienteController.update);
 router.delete('/paciente/:id',pacienteController.delete);
 router.get('/paciente/dni/:dni',pacienteController.getByDni);
-router.get('/paciente/search',pacienteController.searchDni);
+router.get('/search',pacienteController.search);
+router.get('/searchp',pacienteController.searchDni);
+
 
 
 

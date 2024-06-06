@@ -6,7 +6,7 @@ const PacienteSchema = new Schema({
   dni: String,
   nombre: String,
   apellido: String,
-  edad: Number,
+  edad: String,
   fecha_nac: Date,
   sexo: String,
   cobertura_soc: String,
