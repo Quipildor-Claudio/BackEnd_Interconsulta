@@ -10,9 +10,7 @@ const InterConsultaSchema = new Schema({
     id_medio: { type: Schema.Types.ObjectId, ref: 'Medico' },
     estudios:[
         {
-            _id:String,
-            tipo:String,
-            fecha:Date
+            id_estudio: { type: Schema.Types.ObjectId, ref: 'Estudio' },
         }
     ],
     

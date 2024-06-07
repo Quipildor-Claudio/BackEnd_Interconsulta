@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const interconsulta = require('./interconsulta');
 const Schema = mongoose.Schema;
 const PacienteSchema = new Schema({
-  _id: String,
   dni: String,
   nombre: String,
   apellido: String,
