@@ -6,7 +6,7 @@ const pacienteController = require('../../controllers/pacienteController');
 const medicoController = require('../../controllers/medicoController');
 const servicioController = require('../../controllers/servicioController');
 const interconsultaController = require('../../controllers/interconsultaController');
-
+const estudioController = require('../../controllers/estudioController');
 
 /**  Ruta de testeo */
 router.get('/test',testController.test);
@@ -58,5 +58,13 @@ router.get('/servicio/:id',servicioController.getOne);
 router.post('/servicio',servicioController.save);
 router.put('/servicio/:id',servicioController.update);
 router.delete('/servicio/:id',servicioController.delete);
+
+/**  Rutas  de Estudios */
+
+router.get('/estudios',estudioController.getAll);
+router.get('/estudio/:id',estudioController.getOne);
+router.post('/estudio',estudioController.save);
+router.put('/estudio/:id',estudioController.update);
+router.delete('/estudio/:id',estudioController.delete);
 
 module.exports=router;

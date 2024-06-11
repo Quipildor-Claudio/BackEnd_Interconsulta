@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const EstudioSchema = new Schema({
-    nombre: String,
     descripcion:String
 },
 { timestamps: true } );
