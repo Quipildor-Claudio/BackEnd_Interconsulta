@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const test_routes = require('./server/routes/routes');
 const isAuthenticated = require("./middlewares/is-authenticated");
-const bcrypt = require("bcrypt");
 const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -26,7 +25,7 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: "*", // Allow the frontend to connect to the server
+  origin: "http://localhost:4200", // Allow the frontend to connect to the server
   credentials: true, // Allow credentials, required for sessions with authentication
 };
 

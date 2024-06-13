@@ -6,7 +6,7 @@ const userController = {
 
   register: async (req, res) => {
     try {
-      const { username, password } = req.body;
+      const { username, password,medico } = req.body;
 
       // Check if the username is already taken
       const existing = await User.findOne({ username });
@@ -15,7 +15,7 @@ const userController = {
         return res.status(400).send({ message: "Username already taken." });
       }
       // Create a new user
-      const user = new User({ username, password });
+      const user = new User({ username, password, medico});
       await user.save();
 
       res.status(201).send({ message: "User registered successfully." });
@@ -34,7 +34,7 @@ const userController = {
   
       // Set user information in session
       req.session.user = { id: user._id, username: user.username };
-      res.status(200).send({ message: "Logged in successfully" }); // Set-Cookie header will be sent with the response
+      res.status(200).send({ message: "Logged in successfully",id:user.medico}); // Set-Cookie header will be sent with the response
     } catch (error) {
       console.log(error);
       res.status(500).send(error);
