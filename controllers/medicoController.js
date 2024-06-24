@@ -7,7 +7,7 @@ var medicoController = {
             const limit = parseInt(req.query.limit) || 50;
             const skip = (page - 1) * limit;
     
-            const items = await Medico.find().skip(skip).limit(limit);
+            const items = await Medico.find().skip(skip).limit(limit).sort({_id:-1});
             const totalItems = await Medico.countDocuments();
             const totalPages = Math.ceil(totalItems / limit);
     

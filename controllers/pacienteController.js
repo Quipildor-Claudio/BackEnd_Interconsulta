@@ -7,7 +7,7 @@ var pacienteController = {
             const limit = parseInt(req.query.limit) || 50;
             const skip = (page - 1) * limit;
 
-            const items = await Paciente.find().skip(skip).limit(limit);
+            const items = await Paciente.find().skip(skip).limit(limit).sort({_id:-1});
             const totalItems = await Paciente.countDocuments();
             const totalPages = Math.ceil(totalItems / limit);
 
