@@ -64,6 +64,16 @@ var medicoController = {
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
+    },
+
+    searchMedicoByDni: async(req,res)=>{
+        try {
+            const { cuil } = req.query;
+            const medicos = await Medico.find({ cuil: new RegExp(cuil, 'i') });
+            res.json(medicos);
+        } catch (error) {
+            res.status(500).send(error);
+        }
     }
 
 }

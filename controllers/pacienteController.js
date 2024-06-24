@@ -85,7 +85,7 @@ var pacienteController = {
 
     searchDni: async (req, res) => {
         try {
-            const  {dni}  = req.query;
+            const { dni } = req.query;
             const patients = await Paciente.find({ dni: new RegExp(`^${dni}`, 'i') }).limit(100);
             res.json(patients);
         } catch (error) {

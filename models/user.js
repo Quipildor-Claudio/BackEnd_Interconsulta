@@ -14,7 +14,7 @@ const userSchema = new Schema({
         required: true
     },
     role: { type: String, default: "user" },
-    medico: { type: Schema.Types.ObjectId, ref: 'Medico' }
+    medico: { type: Schema.Types.ObjectId, ref: 'Medico' ,unique:true}
 });
 
 userSchema.pre("save", async function (next) {

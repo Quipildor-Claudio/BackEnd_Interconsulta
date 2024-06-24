@@ -41,6 +41,8 @@ router.get('/medico/:id',medicoController.getOne);
 router.post('/medico',medicoController.save);
 router.put('/medico/:id',medicoController.update);
 router.delete('/medico/:id',medicoController.delete);
+router.get('/searchm',medicoController.searchMedicoByDni);
+
 
 /**  Rutas  de Interconsulta */
 
