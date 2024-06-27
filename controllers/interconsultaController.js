@@ -64,6 +64,18 @@ let interconsultaController = {
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
+    },
+    getInterconsultaByPaciente: async (req, res) => {
+        try {
+            const interconsultas = await Interconsulta.find({ id_paciente: req.params.id })
+                .populate('id_paciente') // Si deseas obtener información del paciente
+                .populate('id_medico')   // Si deseas obtener información del médico
+                .populate('estudios.id_estudio'); // Si deseas obtener información de los estudios
+    
+            res.json(interconsultas);
+        } catch (err) {
+            res.status(500).send(err.message);
+        }
     }
 
 }

@@ -51,6 +51,8 @@ router.get('/interconsulta/:id',interconsultaController.getOne);
 router.post('/interconsulta',interconsultaController.save);
 router.put('/interconsulta/:id',interconsultaController.update);
 router.delete('/interconsulta/:id',interconsultaController.delete);
+router.get('/interconsulta/paciente/:id',interconsultaController.getInterconsultaByPaciente);
+
 
 
 /**  Rutas  de Servicio */
