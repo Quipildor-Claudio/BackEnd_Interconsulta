@@ -16,6 +16,12 @@ router.post('/register',userController.register);
 router.post('/login',userController.login);
 router.post('/logout',userController.logout);
 router.delete('/user/:id',userController.delete);
+router.get('/users',userController.getAll);
+router.put('/user/:id',userController.update);
+router.get('/user/:id',userController.getOne);
+
+
+
 
 
 

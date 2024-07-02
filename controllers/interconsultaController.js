@@ -7,7 +7,10 @@ let interconsultaController = {
             const limit = parseInt(req.query.limit) || 50;
             const skip = (page - 1) * limit;
     
-            const items = await Interconsulta.find().populate('id_paciente').skip(skip).limit(limit);
+            const items = await Interconsulta.find()
+            .populate('id_medico')   
+            .populate({ path: 'estudios', select: 'descripcion' })
+            .skip(skip).limit(limit);
             const totalItems = await Interconsulta.countDocuments();
             const totalPages = Math.ceil(totalItems / limit);
     

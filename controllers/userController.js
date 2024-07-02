@@ -4,25 +4,57 @@ const session = require("express-session");
 const User = require('../models/user');
 const userController = {
 
+  getAll: async (req, res) => {
+    try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 10;
+      const skip = (page - 1) * limit;
+      const items = await User.find()
+        .populate('medico')
+        .skip(skip)
+        .limit(limit)
+        .sort({ _id: -1 });
+      const totalItems = await User.countDocuments();
+      const totalPages = Math.ceil(totalItems / limit);
+      res.json({
+        items,
+        totalItems,
+        totalPages,
+        currentPage: page
+      });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+  getOne: async (req, res) => {
+    try {
+      const item = await User.findById(req.params.id);
+      if (item == null) {
+        return res.status(404).json({ message: 'Item no encontrado' });
+      }
+      res.json(item);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
   register: async (req, res) => {
     try {
+
       const { username, password, medico } = req.body;
-
-      // Check if the username is already taken
       const existing = await User.findOne({ username });
-
       if (existing) {
         return res.status(400).send({ message: "Username already taken." });
       }
       // Create a new user
       const user = new User({ username, password, medico });
       await user.save();
-
       res.status(201).send({ message: "User registered successfully." });
     } catch (error) {
       res.status(400).send(error);
     }
   },
+
   login: async (req, res) => {
     try {
       const { username, password } = req.body;
@@ -56,26 +88,32 @@ const userController = {
       res.status(400).send({ message: "You are not logged in" });
     }
   },
+  update: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const newUser = req.body;
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      user.password = newUser.password;
+      user.username = newUser.username;
+      await user.save();
+      res.json(user);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+
+  },
+
   delete: async (req, res) => {
     try {
-      const id = req.session.user.id;
-
-      const admin = await User.findById(id);
-
-      if (!admin || admin.role !== "admin") {
-        return res.status(401).send({ message: "Unauthorized" });
+      const deletedItem = await User.findByIdAndDelete(req.params.id);
+      if (deletedItem == null) {
+        return res.status(404).json({ message: 'Item no encontrado' });
       }
-
-      const user = await User.findById(req.params.id);
-      if (!user) {
-        return res.status(404).send({ message: "User not found" });
-      }
-
-      await user.remove();
-
-      res.send({ message: "User deleted successfully" });
-    } catch (error) {
-      res.status(500).send(error);
+      res.json({ message: 'Item eliminado' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
     }
   }
 

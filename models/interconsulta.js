@@ -8,7 +8,7 @@ const InterConsultaSchema = new Schema({
     id_paciente: { type: Schema.Types.ObjectId, ref: 'Paciente' },
     id_medico: { type: Schema.Types.ObjectId, ref: 'Medico' },
     estudios:[
-        {
+        {   descripcion:String,
             id_estudio: { type: Schema.Types.ObjectId, ref: 'Estudio' },
         }
     ],
