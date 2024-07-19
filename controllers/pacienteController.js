@@ -10,7 +10,6 @@ var pacienteController = {
             const items = await Paciente.find().skip(skip).limit(limit).sort({_id:-1});
             const totalItems = await Paciente.countDocuments();
             const totalPages = Math.ceil(totalItems / limit);
-
             res.json({
                 items,
                 totalItems,
@@ -35,6 +34,7 @@ var pacienteController = {
     save: async (req, res) => {
         try {
             const item = new Paciente(req.body);
+            console.log(item);
             const savedItem = await item.save();
             res.status(201).json(savedItem);
         } catch (err) {

@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const test_routes = require('./server/routes/routes');
-const isAuthenticated = require("./middlewares/is-authenticated");
 const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
@@ -51,17 +50,8 @@ app.use(
   })
 );
 
-
 app.use(morgan('dev'));
 app.use('/api', test_routes);
-
-// Using auth middleware to check if the user is authenticated
-// The middleware will check if the user is logged in by checking the session
-// If the user is logged in, the request will be passed to the endpoint
-// If the user is not logged in, the middleware will return a 401 status
-app.get("/is-authenticated", isAuthenticated, (req, res) => {
-  res.status(200).send({ message: "Authenticated" });
-});
 
 app.listen(process.env.PORT, () => {
   console.log(`Server Started at ${process.env.PORT}`)

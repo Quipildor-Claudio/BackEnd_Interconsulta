@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const interconsulta = require('./interconsulta');
 const Schema = mongoose.Schema;
 const PacienteSchema = new Schema({
   dni: String,
@@ -17,7 +16,7 @@ const PacienteSchema = new Schema({
   man_dom: Number,
   lote_dom: Number,
   interconsultas:[{
-    id_interconsulta: { type: Schema.Types.ObjectId, ref: 'Interconsulta' },
+   type: Schema.Types.ObjectId, ref: 'Interconsulta' 
   }]
 });
 

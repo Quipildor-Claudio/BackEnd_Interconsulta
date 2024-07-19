@@ -116,6 +116,10 @@ const userController = {
       res.status(500).json({ message: err.message });
     }
   }
+  ,
+  isAuthenticated: async (req, res) => {
+    res.status(200).send({ message: "Authenticated" });
+  }
 
 }
 

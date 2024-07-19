@@ -5,8 +5,8 @@ const InterConsultaSchema = new Schema({
     descripcion:String,
     lugar:String,
     tipo:String,  // valor tipo de atencion nueva seguimineto 
-    id_paciente: { type: Schema.Types.ObjectId, ref: 'Paciente' },
-    id_medico: { type: Schema.Types.ObjectId, ref: 'Medico' },
+    paciente: { type: Schema.Types.ObjectId, ref: 'Paciente' },
+    medico: { type: Schema.Types.ObjectId, ref: 'Medico' },
     estudios:[
         {   descripcion:String,
             id_estudio: { type: Schema.Types.ObjectId, ref: 'Estudio' },

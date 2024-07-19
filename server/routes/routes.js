@@ -58,6 +58,7 @@ router.post('/interconsulta',interconsultaController.save);
 router.put('/interconsulta/:id',interconsultaController.update);
 router.delete('/interconsulta/:id',interconsultaController.delete);
 router.get('/interconsulta/paciente/:id',interconsultaController.getInterconsultaByPaciente);
+router.get('/search-fecha',interconsultaController.interRangoFecha);
 
 
 
